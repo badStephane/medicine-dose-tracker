@@ -1,11 +1,58 @@
-# .gitignore - Racine du projet
-# ===============================
-
 # Python
 __pycache__/
 *.py[cod]
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Environment variables
+.env
+
+# Virtual environments
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+
+# Translations
+*.mo
+*.pot
+
+# Logs
+logs/
+*.log
+
+# Local development
+*.local
+
+# Project specific
+frontend/node_modules/
+backend/static/
+backend/media/
+
+# Redis
+*.rdb
+*.rdb-
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Python byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 *$py.class
-*.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -19,58 +66,15 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
-# Django
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media/
-staticfiles/
-static/
-
-# Environment variables
-.env
-.env.local
-.env.production
-.env.staging
-*.env
-
-# Virtual environments
-venv/
-env/
-ENV/
-.venv/
-.ENV/
-env.bak/
-venv.bak/
-
-# IDE and Editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-
-# Node.js (si vous ajoutez des outils de build plus tard)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# Coverage reports
+# Unit test / coverage reports
 htmlcov/
 .tox/
+.nox/
 .coverage
 .coverage.*
 .cache
@@ -80,16 +84,6 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -137,14 +131,6 @@ dmypy.json
 *.log
 logs/
 *.pid
-
-# Database dumps
-*.sql
-*.dump
-
-# Backup files
-*.bak
-*.backup
 
 # Temporary files
 *.tmp
