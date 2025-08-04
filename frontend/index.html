@@ -1,1 +1,265 @@
-<!-- Fichier HTML vide - Vidé à la demande de l'utilisateur -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Tracker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        .medicine-card {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .medicine-card:hover {
+            transform: translateY(-2px);
+        }
+        .loading {
+            display: none;
+        }
+        .loading.show {
+            display: block;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showHome()">
+                <i class="fas fa-pills me-2"></i>Medicine Dose Tracker
+            </a>
+            <div class="navbar-nav ms-auto" id="navbar-menu">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Container -->
+    <div class="container mt-3">
+        <div id="alert-container"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        <div class="container mt-4">
+            <!-- Loading Spinner -->
+            <div id="loading" class="loading text-center py-5">
+                <i class="fas fa-spinner fa-spin fa-3x text-primary mb-3"></i>
+                <p>Loading...</p>
+            </div>
+
+            <!-- Home Page -->
+            <div id="home-page" class="page">
+                <div class="hero-section text-center">
+                    <div class="container">
+                        <h1 class="display-4 mb-3">
+                            <i class="fas fa-pills me-3"></i>Medicine Tracker
+                        </h1>
+                        <p class="lead mb-4">Keep track of your medications, dosages, and schedules in one simple place.</p>
+                        <div class="d-grid gap-2 d-md-block" id="hero-buttons">
+                            <!-- Buttons will be populated by JavaScript based on auth state -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container my-5">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <i class="fas fa-plus-circle fa-3x text-primary mb-3"></i>
+                                    <h5 class="card-title">Easy Medicine Entry</h5>
+                                    <p class="card-text">Quickly add your medications with name, dosage, and frequency information.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <i class="fas fa-list fa-3x text-success mb-3"></i>
+                                    <h5 class="card-title">Organized Tracking</h5>
+                                    <p class="card-text">View all your medications in an organized list with easy edit and delete options.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <i class="fas fa-shield-alt fa-3x text-warning mb-3"></i>
+                                    <h5 class="card-title">Secure & Private</h5>
+                                    <p class="card-text">Your medical information is stored securely with user authentication.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Page -->
+            <div id="login-page" class="page hidden">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3><i class="fas fa-sign-in-alt me-2"></i>Login</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="login-form">
+                                    <div class="mb-3">
+                                        <label for="login-username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="login-username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="login-password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="login-password" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <p class="mb-0">Don't have an account? <a href="#" onclick="showSignup()">Sign up here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signup Page -->
+            <div id="signup-page" class="page hidden">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3><i class="fas fa-user-plus me-2"></i>Create Account</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="signup-form">
+                                    <div class="mb-3">
+                                        <label for="signup-username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="signup-username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signup-email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="signup-email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signup-password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="signup-password" required minlength="6">
+                                        <div class="form-text">Password must be at least 6 characters long.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="signup-confirm-password" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-user-plus me-2"></i>Create Account
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <p class="mb-0">Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page hidden">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="fas fa-tachometer-alt me-2"></i>Your Medicine Dashboard</h2>
+                    <button class="btn btn-primary" onclick="showMedicineForm()">
+                        <i class="fas fa-plus me-2"></i>Add New Medicine
+                    </button>
+                </div>
+
+                <div id="medicines-container">
+                    <!-- Medicines will be populated by JavaScript -->
+                </div>
+                
+                <div id="empty-state" class="text-center py-5 hidden">
+                    <i class="fas fa-pills fa-5x text-muted mb-3"></i>
+                    <h4>No medicines added yet</h4>
+                    <p class="text-muted">Start by adding your first medicine to track.</p>
+                    <button class="btn btn-primary btn-lg" onclick="showMedicineForm()">
+                        <i class="fas fa-plus me-2"></i>Add Your First Medicine
+                    </button>
+                </div>
+            </div>
+
+            <!-- Medicine Form Page -->
+            <div id="medicine-form-page" class="page hidden">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 id="form-title">
+                                    <i class="fas fa-plus me-2"></i>Add New Medicine
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="medicine-form">
+                                    <input type="hidden" id="medicine-id">
+                                    <div class="mb-3">
+                                        <label for="medicine-name" class="form-label">Medicine Name</label>
+                                        <input type="text" class="form-control" id="medicine-name" placeholder="e.g., Aspirin, Vitamin D" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="medicine-dosage" class="form-label">Dosage</label>
+                                        <input type="text" class="form-control" id="medicine-dosage" placeholder="e.g., 100mg, 2 tablets, 1 tsp" required>
+                                        <div class="form-text">Include quantity and units (e.g., "100mg", "2 tablets")</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="medicine-frequency" class="form-label">Frequency</label>
+                                        <input type="text" class="form-control" id="medicine-frequency" placeholder="e.g., Once daily, Twice a day, Every 8 hours" required>
+                                        <div class="form-text">How often you take this medicine</div>
+                                    </div>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button type="button" class="btn btn-secondary" onclick="showDashboard()">
+                                            <i class="fas fa-times me-2"></i>Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" id="form-submit-btn">
+                                            <i class="fas fa-plus me-2"></i>Add Medicine
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Medicine Tracker. Built with Django & Vanilla JavaScript.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
